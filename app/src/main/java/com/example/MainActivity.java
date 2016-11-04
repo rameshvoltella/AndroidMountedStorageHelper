@@ -42,7 +42,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 public class MainActivity extends AppCompatActivity implements OnMountCallback {
+
+    /* implements @interface OnMountCallback  to get  mount callbacks*/
 
     /*Declare the OnMediaMountedReceiver before on create*/
     OnMediaMountedReceiver mOnMediaMountedReceiver=new OnMediaMountedReceiver(this);
