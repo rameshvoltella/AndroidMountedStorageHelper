@@ -1,3 +1,26 @@
+/*** The MIT License (MIT)
+
+ Copyright (c) 2016 Ramesh M Nair
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ ***/
+
 package com.ramzi.mountlib.storageutils.control;
 
 import android.annotation.TargetApi;
@@ -21,9 +44,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by munnaz on 3/11/16.
- */
 
 public class StorageCallbackImp implements StorageCallback {
 
@@ -62,43 +82,27 @@ public class StorageCallbackImp implements StorageCallback {
     public void loadStorage(Context mContext)
     {
         StorageUtils storageUtils = new StorageUtils(mContext);
-           Log.d("loadingg--","---------------------------"+storageUtils.getStorageMounts().size());
 
         for (StorageVolume volume : storageUtils.getStorageMounts()) {
             final File path = volume.getPathFile();
-            Log.d("pathi",path.getAbsolutePath());
-            String state = EnvironmentCompat.getStorageState(path);
-            final boolean mounted = Environment.MEDIA_MOUNTED.equals(state)
-                    || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
-//            if (!mounted)
-//            {
-//
-//            }
-            Log.d("pathi","---------------------------"+volume.isPrimary+""+volume.isEmulated);
-
-            String rootId="";
+             String rootId="";
              String title="";
             if (volume.isPrimary && volume.isEmulated) {
                 rootId = ROOT_ID_PRIMARY_EMULATED;
                 title = "Internal Storage";
-                Log.d("pathi--","---------------------------"+title);
-
             } else if (volume.getUuid() != null) {
                 rootId = ROOT_ID_SECONDARY + volume.getLabel();
                 String label = volume.getLabel();
                 title = !TextUtils.isEmpty(label) ? label
                         : "External Storage"
                         + (count > 0 ? " " + count : "");
-                Log.d("TITLE----",volume.getLabel());
                 count++;
             } else {
                 Log.d("TAG", "Missing UUID for " + volume.getPath() + "; skipping");
-//                continue;
             }
 
             if (mIdToPath.containsKey(rootId)) {
                 Log.w("TAG", "Duplicate UUID " + rootId + "; skipping");
-//                continue;
             }
 
             try {
@@ -117,7 +121,7 @@ public class StorageCallbackImp implements StorageCallback {
                 mIdToRoot.put(rootId, root);
                 Log.d("TITLE------------",title);
                 Log.d("PATH------------",getDocIdForFile(path));
-                Log.d("ROOTID------------",rootId);
+                Log.d("ROOT_ID------------",rootId);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 throw new IllegalStateException(e);
