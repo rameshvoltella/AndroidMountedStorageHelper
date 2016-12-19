@@ -18,9 +18,3 @@ android:
      - sys-img-armeabi-v7a-android-22
     #- sys-img-armeabi-v7a-android-17
 
-
-
-#script:
-   - android list target
-   - ./gradlew build connectedCheck --stacktrace --info
-   - chmod +x ./gradlew
