@@ -1,5 +1,9 @@
 # README #
 
+### Build status
+
+**develop** [![Build Status](https://api.travis-ci.org/rameshvoltella/AndroidMountedStorageHelper.svg?branch=master)](https://travis-ci.org/rameshvoltella/AndroidMountedStorageHelper)
+
 externaldirectoryhelperLib: how to use
 ------------------------
 
